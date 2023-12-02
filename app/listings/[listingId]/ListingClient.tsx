@@ -38,18 +38,25 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const loginModal = useLoginModal();
   const router = useRouter();
 
+  //how to disable dates which is already reserved
+
+  //1 create function disabledDates
   const disabledDates = useMemo(() => {
+    //2 make date array
     let dates: Date[] = [];
 
+    //3 iterate reservations and use eachDayOfInterval() to extract range from start/end date
     reservations.forEach((reservation: any) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate),
       });
 
+      //4 push it in date array
       dates = [...dates, ...range];
     });
 
+    //5 return date array
     return dates;
   }, [reservations]);
 
@@ -148,6 +155,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
                 dateRange={dateRange}
                 onSubmit={onCreateReservation}
                 disabled={isLoading}
+                //6 send to calendar component
                 disabledDates={disabledDates}
               />
             </div>
