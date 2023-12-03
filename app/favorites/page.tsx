@@ -1,20 +1,19 @@
 import EmptyState from "@/app/components/EmptyState";
 
 import getCurrentUser from "@/app/actions/getCurrentUser";
-//getFavorites
+import getFavorites from "../actions/getFavorites";
 
 import FavoritesClient from "./FavoritesClient";
 
 const FavoritesPage = async () => {
   const currentUser = await getCurrentUser();
+  const listings = await getFavorites();
 
   if (!currentUser) {
     return <EmptyState title="Unauthorized" subtitle="Please login" />;
   }
 
-  //   const reservations = await getReservations({ authorId: currentUser.id });
-
-  if (favorite.length === 0) {
+  if (listings.length === 0) {
     return (
       <EmptyState
         title="No favorites found"
@@ -23,9 +22,7 @@ const FavoritesPage = async () => {
     );
   }
 
-  return (
-    <FavoritesClient reservations={reservations} currentUser={currentUser} />
-  );
+  return <FavoritesClient listings={listings} currentUser={currentUser} />;
 };
 
 export default FavoritesPage;
