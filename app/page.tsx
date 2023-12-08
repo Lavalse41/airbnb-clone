@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
 import EmptyState from "@/app/components/EmptyState";
@@ -9,6 +11,7 @@ interface HomeProps {
   searchParams: IListingsParams;
 }
 
+// eslint-disable-next-line @next/next/no-async-client-component
 const Home = async ({ searchParams }: HomeProps) => {
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
